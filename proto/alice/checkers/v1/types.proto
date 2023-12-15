@@ -1,0 +1,13 @@
+syntax="proto3";
+package alice.checkers.v1;
+
+option go_package = "github.com/alice/checkers";
+
+import "cosmos_proto/cosmos.proto";
+import "gogoproto/gogo.proto";
+
+message Params {}
+
+message GenesisState {
+    Params params = 1 [(gogoproto.nullable) = false];  
+}

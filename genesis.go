@@ -1,0 +1,16 @@
+package checkers
+
+// NewGenesisState creates a new genesis state with default values.
+func NewGenesisState() *GenesisState {
+	return &GenesisState{
+		Params: DefaultParams(),
+	}
+}
+
+// Validate performs basic genesis state validation returning an error upon any
+func (ngs *GenesisState) Validate() error {
+	if err := ngs.Params.Validate(); err != nil {
+		return err
+	}
+	return nil
+}
