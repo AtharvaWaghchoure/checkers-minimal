@@ -18,8 +18,9 @@ type Keeper struct {
 	// typically, this should be the x/gov module account
 	authorizedAddress string
 
-	Schema collections.Schema
-	Params collections.Item[checkers.Params]
+	Schema      collections.Schema
+	Params      collections.Item[checkers.Params]
+	StoredGames collections.Map[string, checkers.StoredGame]
 }
 
 func NewKeeper(cdc codec.BinaryCodec, addressCodec address.Codec, storeService storetypes.KVStoreService, authorizedAddress string) Keeper {
@@ -36,6 +37,7 @@ func NewKeeper(cdc codec.BinaryCodec, addressCodec address.Codec, storeService s
 		// Address capable of performing state changing task
 		authorizedAddress: authorizedAddress,
 		Params:            collections.NewItem(schemeBuilder, checkers.ParamsKey, "params", codec.CollValue[checkers.Params](cdc)),
+		StoredGames:       collections.NewMap(schemeBuilder, checkers.StoredGamesKey, "storedGames", collections.StringKey, codec.CollValue[checkers.StoredGame](cdc)),
 	}
 
 	schema, err := schemeBuilder.Build()
